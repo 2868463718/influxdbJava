@@ -1,0 +1,9 @@
+
+spring:
+  influx:
+    url: https://ts-wz9p949h6w2r71472.influxdata.rds.aliyuncs.com:3242
+    database: zy
+    user: bycw
+    password: bycw#123456
+    retentionName: one_day_only
+    retentionTime: 1d
