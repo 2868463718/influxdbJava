@@ -814,6 +814,20 @@ public class QueryWrapperImpl implements QueryWrapper {
     }
 
     @Override
+    public QueryWrapper funToFun(String outFunName, String inFunName, String... params) {
+        StringBuffer stringBuffer=new StringBuffer();
+        stringBuffer.append(" "+outFunName+"( ");
+        stringBuffer.append(inFunName+" ( ");
+        String s = String.join(",", params);
+        stringBuffer.append(s);
+        stringBuffer.append(" ) ");
+
+        String ss=stringBuffer.toString();
+        selectFields.add(ss);
+        return this;
+    }
+
+    @Override
     public String getSqlSelect() {
         sql.append("SELECT ");
         for (String s : selectFields) {

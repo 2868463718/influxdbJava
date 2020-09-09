@@ -722,6 +722,15 @@ public interface QueryWrapper {
 
 
     /**
+     * 函数嵌套,不支持正则表达式
+     * @param outFunName  最外面的函数
+     * @param inFunName 里面的函数
+     * @param params    里面函数的参数
+     * @return
+     */
+    QueryWrapper funToFun(String outFunName,String inFunName,String... params);
+
+    /**
      * 获取拼接成的sql语句
      *
      * @return
