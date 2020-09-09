@@ -33,7 +33,7 @@ public interface QueryWrapper {
      * @param value
      * @return
      */
-    QueryWrapper eqTag(Object key, Object value);
+    QueryWrapper eqTag(String key, String value);
 
     /**
      * tagvalue不等于某个值
@@ -42,7 +42,7 @@ public interface QueryWrapper {
      * @param value
      * @return
      */
-    QueryWrapper neTag(Object key, Object value);
+    QueryWrapper neTag(String key, String value);
 
     /**
      * field等于某个值
@@ -51,7 +51,7 @@ public interface QueryWrapper {
      * @param value
      * @return
      */
-    QueryWrapper eqField(Object key, Object value);
+    QueryWrapper eqField(String key, Object value);
 
     /**
      * 不等于
@@ -60,7 +60,7 @@ public interface QueryWrapper {
      * @param value
      * @return
      */
-    QueryWrapper neField(Object key, Object value);
+    QueryWrapper neField(String key, Object value);
 
     /**
      * 小于
@@ -69,7 +69,7 @@ public interface QueryWrapper {
      * @param value
      * @return
      */
-    QueryWrapper ltField(Object key, Object value);
+    QueryWrapper ltField(String key, Object value);
 
     /**
      * 大于
@@ -78,7 +78,7 @@ public interface QueryWrapper {
      * @param value
      * @return
      */
-    QueryWrapper gtField(Object key, Object value);
+    QueryWrapper gtField(String key, Object value);
 
     /**
      * 大于等于
@@ -87,7 +87,7 @@ public interface QueryWrapper {
      * @param value
      * @return
      */
-    QueryWrapper geField(Object key, Object value);
+    QueryWrapper geField(String key, Object value);
 
     /**
      * 小于等于
@@ -96,7 +96,7 @@ public interface QueryWrapper {
      * @param value
      * @return
      */
-    QueryWrapper leField(Object key, Object value);
+    QueryWrapper leField(String key, Object value);
 
 
     /**
@@ -229,9 +229,9 @@ public interface QueryWrapper {
      * @param regex
      * @return
      */
-    QueryWrapper whereLike(Object key, String regex);
+    QueryWrapper whereLike(String key, String regex);
 
-    QueryWrapper whereNotLike(Object key, String regex);
+    QueryWrapper whereNotLike(String key, String regex);
 
     /**
      * groupby 使用正则表达式

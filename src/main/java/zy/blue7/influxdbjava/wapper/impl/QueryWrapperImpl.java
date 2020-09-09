@@ -96,28 +96,38 @@ public class QueryWrapperImpl implements QueryWrapper {
      * @return
      */
     @Override
-    public QueryWrapper eqTag(Object key, Object value) {
-        if (value instanceof String) {
-            queryConditions.add(key + "=" + "'" + value + "'");
-        } else {
-            throw new RuntimeException("where 子句中的tagvalue只支持字符串，传入的value值的类型是；" + value.getClass());
+    public QueryWrapper eqTag(String key, String value) {
+        if (key == null || key.equalsIgnoreCase("")) {
+            throw new RuntimeException("tag的 key不可以为空");
         }
-
+        if (value == null || value.equalsIgnoreCase("")) {
+            throw new RuntimeException("tag的 value不可以为空");
+        }
+        queryConditions.add(key + "=" + "'" + value + "'");
         return this;
     }
 
     @Override
-    public QueryWrapper neTag(Object key, Object value) {
-        if (value instanceof String) {
-            queryConditions.add(key + "!=" + "'" + value + "'");
-        } else {
-            throw new RuntimeException("where 子句中的tagvalue只支持字符串，传入的value值的类型是；" + value.getClass());
+    public QueryWrapper neTag(String key, String value) {
+        if (key == null || key.equalsIgnoreCase("")) {
+            throw new RuntimeException("tag的 key不可以为空");
         }
+        if (value == null || value.equalsIgnoreCase("")) {
+            throw new RuntimeException("tag的 value不可以为空");
+        }
+        queryConditions.add(key + "!=" + "'" + value + "'");
 
         return this;
     }
 
-    private void fieldProcess(Object key, Object value, String symbol) {
+    private void fieldProcess(String key, Object value, String symbol) {
+        if (key == null || key.equalsIgnoreCase("")) {
+            throw new RuntimeException("field的 key不可以为空");
+        }
+        if (value == null ) {
+            throw new RuntimeException("field的 value不可以为空");
+        }
+
         /**
          * 数值类型就直接显示
          */
@@ -143,14 +153,15 @@ public class QueryWrapperImpl implements QueryWrapper {
      * @return
      */
     @Override
-    public QueryWrapper eqField(Object key, Object value) {
+    public QueryWrapper eqField(String key, Object value) {
+
         String symbol = "=";
         this.fieldProcess(key, value, symbol);
         return this;
     }
 
     @Override
-    public QueryWrapper neField(Object key, Object value) {
+    public QueryWrapper neField(String key, Object value) {
         String symbol = "!=";
         this.fieldProcess(key, value, symbol);
         return this;
@@ -158,28 +169,28 @@ public class QueryWrapperImpl implements QueryWrapper {
 
 
     @Override
-    public QueryWrapper ltField(Object key, Object value) {
+    public QueryWrapper ltField(String key, Object value) {
         String symbol = "<";
         this.fieldProcess(key, value, symbol);
         return this;
     }
 
     @Override
-    public QueryWrapper gtField(Object key, Object value) {
+    public QueryWrapper gtField(String key, Object value) {
         String symbol = ">";
         this.fieldProcess(key, value, symbol);
         return this;
     }
 
     @Override
-    public QueryWrapper geField(Object key, Object value) {
+    public QueryWrapper geField(String key, Object value) {
         String symbol = ">=";
         this.fieldProcess(key, value, symbol);
         return this;
     }
 
     @Override
-    public QueryWrapper leField(Object key, Object value) {
+    public QueryWrapper leField(String key, Object value) {
         String symbol = "<=";
         this.fieldProcess(key, value, symbol);
         return this;
@@ -190,7 +201,7 @@ public class QueryWrapperImpl implements QueryWrapper {
         /**
          * time > now() - 5m
          */
-        this.queryConditions.add(" time > now() -"+value+" ");
+        this.queryConditions.add(" time > now() -" + value + " ");
         return this;
     }
 
@@ -320,14 +331,14 @@ public class QueryWrapperImpl implements QueryWrapper {
     }
 
     @Override
-    public QueryWrapper whereLike(Object key, String regex) {
+    public QueryWrapper whereLike(String key, String regex) {
         String symbol = "=~";
         queryConditions.add(key + symbol + "/" + regex + "/");
         return this;
     }
 
     @Override
-    public QueryWrapper whereNotLike(Object key, String regex) {
+    public QueryWrapper whereNotLike(String key, String regex) {
         String symbol = "!~";
         queryConditions.add(key + symbol + "/" + regex + "/");
         return this;
@@ -583,7 +594,6 @@ public class QueryWrapperImpl implements QueryWrapper {
     }
 
 
-
     @Override
     public QueryWrapper derivative(String param) {
         selectFields.add(" derivative(" + param + ")");
@@ -610,220 +620,220 @@ public class QueryWrapperImpl implements QueryWrapper {
 
     @Override
     public QueryWrapper abs(String fieldKey) {
-        selectFields.add(" ABS(" + fieldKey +")");
+        selectFields.add(" ABS(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper acos(String fieldKey) {
-        selectFields.add(" ACOS(" + fieldKey +")");
+        selectFields.add(" ACOS(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper cos(String fieldKey) {
-        selectFields.add(" COS(" + fieldKey +")");
+        selectFields.add(" COS(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper cumulative_sum(String fieldKey) {
-        selectFields.add(" CUMULATIVE_SUM(" + fieldKey +")");
+        selectFields.add(" CUMULATIVE_SUM(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper cumulative_sumLike(String regex) {
-        selectFields.add(" CUMULATIVE_SUM(/" + regex +"/)");
+        selectFields.add(" CUMULATIVE_SUM(/" + regex + "/)");
         return this;
     }
 
     @Override
     public QueryWrapper asin(String fieldKey) {
-        selectFields.add(" ASIN(" + fieldKey +")");
+        selectFields.add(" ASIN(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper sin(String fieldKey) {
-        selectFields.add(" SIN(" + fieldKey +")");
+        selectFields.add(" SIN(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper sqrt(String fieldKey) {
-        selectFields.add(" SQRT(" + fieldKey +")");
+        selectFields.add(" SQRT(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper atan(String fieldKey) {
-        selectFields.add(" ATAN(" + fieldKey +")");
+        selectFields.add(" ATAN(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper tan(String fieldKey) {
-        selectFields.add(" TAN(" + fieldKey +")");
+        selectFields.add(" TAN(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper atan2(String fieldKey1, String fieldKey2) {
-        selectFields.add(" ATAN2(" + fieldKey1+" , "+fieldKey2 +")");
+        selectFields.add(" ATAN2(" + fieldKey1 + " , " + fieldKey2 + ")");
         return this;
     }
 
     @Override
     public QueryWrapper ceil(String fieldKey) {
-        selectFields.add(" CEIL(" + fieldKey +")");
+        selectFields.add(" CEIL(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper floor(String fieldKey) {
-        selectFields.add(" FLOOR(" + fieldKey +")");
+        selectFields.add(" FLOOR(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper ln(String fieldKey) {
-        selectFields.add(" LN(" + fieldKey +")");
+        selectFields.add(" LN(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper log(String fieldKey, String b) {
-        selectFields.add(" LOG(" + fieldKey +" , "+b+")");
+        selectFields.add(" LOG(" + fieldKey + " , " + b + ")");
         return this;
     }
 
     @Override
     public QueryWrapper log2(String fieldKey) {
-        selectFields.add(" LOG2(" + fieldKey +")");
+        selectFields.add(" LOG2(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper log10(String fieldKey) {
-        selectFields.add(" LOG10(" + fieldKey +")");
+        selectFields.add(" LOG10(" + fieldKey + ")");
         return this;
     }
 
 
     @Override
     public QueryWrapper moving_average(String fieldKey, String n) {
-        selectFields.add(" MOVING_AVERAGE(" + fieldKey +" , "+n+")");
+        selectFields.add(" MOVING_AVERAGE(" + fieldKey + " , " + n + ")");
         return this;
     }
 
     @Override
     public QueryWrapper moving_averageLike(String regex, String n) {
-        selectFields.add(" MOVING_AVERAGE(/" + regex +"/ , "+n+")");
+        selectFields.add(" MOVING_AVERAGE(/" + regex + "/ , " + n + ")");
         return this;
     }
 
     @Override
     public QueryWrapper non_negative_derivative(String fieldKey) {
-        selectFields.add(" NON_NEGATIVE_DERIVATIVE(" + fieldKey +")");
+        selectFields.add(" NON_NEGATIVE_DERIVATIVE(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper non_negative_derivativeLike(String regex) {
-        selectFields.add(" NON_NEGATIVE_DERIVATIVE(/" + regex +"/)");
+        selectFields.add(" NON_NEGATIVE_DERIVATIVE(/" + regex + "/)");
         return this;
     }
 
     @Override
     public QueryWrapper non_negative_derivative(String fieldKey, String unit) {
-        selectFields.add(" NON_NEGATIVE_DERIVATIVE(" + fieldKey +" , "+unit+")");
+        selectFields.add(" NON_NEGATIVE_DERIVATIVE(" + fieldKey + " , " + unit + ")");
         return this;
     }
 
     @Override
     public QueryWrapper non_negative_derivativeLike(String regex, String unit) {
-        selectFields.add(" NON_NEGATIVE_DERIVATIVE(/" + regex +" , "+unit+"/)");
+        selectFields.add(" NON_NEGATIVE_DERIVATIVE(/" + regex + " , " + unit + "/)");
         return this;
     }
 
     @Override
     public QueryWrapper non_negative_difference(String fieldKey) {
-        selectFields.add(" NON_NEGATIVE_DIFFERENCE(" + fieldKey +")");
+        selectFields.add(" NON_NEGATIVE_DIFFERENCE(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper non_negative_differenceLike(String regex) {
-        selectFields.add(" NON_NEGATIVE_DIFFERENCE(/" + regex +"/)");
+        selectFields.add(" NON_NEGATIVE_DIFFERENCE(/" + regex + "/)");
         return this;
     }
 
     @Override
     public QueryWrapper pow(String fieldKey, String x) {
-        selectFields.add(" POW(" + fieldKey+" , "+x +")");
+        selectFields.add(" POW(" + fieldKey + " , " + x + ")");
         return this;
     }
 
     @Override
     public QueryWrapper round(String fieldKey) {
-        selectFields.add(" ROUND(" + fieldKey +")");
+        selectFields.add(" ROUND(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper difference(String fieldKey) {
-        selectFields.add(" DIFFERENCE(" + fieldKey +")");
+        selectFields.add(" DIFFERENCE(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper differenceLike(String regex) {
-        selectFields.add(" DIFFERENCE(/" + regex +"/)");
+        selectFields.add(" DIFFERENCE(/" + regex + "/)");
         return this;
     }
 
     @Override
     public QueryWrapper elapsed(String fieldKey) {
-        selectFields.add(" ELAPSED(" + fieldKey +")");
+        selectFields.add(" ELAPSED(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper elapsed(String fieldKey, String unit) {
-        selectFields.add(" ELAPSED(" + fieldKey +" , "+unit+")");
+        selectFields.add(" ELAPSED(" + fieldKey + " , " + unit + ")");
         return this;
     }
 
     @Override
     public QueryWrapper elapsedLike(String regex) {
-        selectFields.add(" ELAPSED(/" + regex +"/)");
+        selectFields.add(" ELAPSED(/" + regex + "/)");
         return this;
     }
 
     @Override
     public QueryWrapper elapsedLike(String regex, String unit) {
-        selectFields.add(" ELAPSED(/" + regex +"/ , "+unit+")");
+        selectFields.add(" ELAPSED(/" + regex + "/ , " + unit + ")");
         return this;
     }
 
     @Override
     public QueryWrapper exp(String fieldKey) {
-        selectFields.add(" EXP(" + fieldKey +")");
+        selectFields.add(" EXP(" + fieldKey + ")");
         return this;
     }
 
     @Override
     public QueryWrapper funToFun(String outFunName, String inFunName, String... params) {
-        StringBuffer stringBuffer=new StringBuffer();
-        stringBuffer.append(" "+outFunName+"(");
-        stringBuffer.append(inFunName+"(");
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(" " + outFunName + "(");
+        stringBuffer.append(inFunName + "(");
         String s = String.join(",", params);
         stringBuffer.append(s);
         stringBuffer.append(")");
         stringBuffer.append(") ");
 
-        String ss=stringBuffer.toString();
+        String ss = stringBuffer.toString();
         selectFields.add(ss);
         return this;
     }
