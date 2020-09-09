@@ -828,6 +828,35 @@ public class QueryWrapperImpl implements QueryWrapper {
         return this;
     }
 
+//    @Override
+//    public QueryWrapper mathematicalOperators(String value, String operator, boolean flag, String funName, String... params) {
+//        StringBuffer stringBuffer=new StringBuffer();
+//        StringBuffer str=new StringBuffer();
+//
+//        stringBuffer.append(funName+"(");
+//        String s = String.join(",", params);
+//        stringBuffer.append(s);
+//        stringBuffer.append(")");
+//
+//        String ss=stringBuffer.toString();
+//
+//        /**
+//         * 如果为真，就value在前，函数在后
+//         */
+//        if(flag){
+//            str.append(value);
+//            str.append(" "+operator+" ");
+//            str.append(ss);
+//        }else {
+//            str.append(ss);
+//            str.append(" "+operator+" ");
+//            str.append(value);
+//        }
+//
+//        selectFields.add(str.toString());
+//        return this;
+//    }
+
     @Override
     public String getSqlSelect() {
         sql.append("SELECT ");

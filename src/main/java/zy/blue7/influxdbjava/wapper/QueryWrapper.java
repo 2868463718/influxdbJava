@@ -730,6 +730,23 @@ public interface QueryWrapper {
      */
     QueryWrapper funToFun(String outFunName,String inFunName,String... params);
 
+
+    /**
+     *
+     * 不支持在函数中使用操作符
+     *
+     *
+     * 对函数进行数学运算符操作，如果flag 为 true ，则value 在函数前面，否则在后面，操作符为operator
+     * @param value  要操作的数值
+     * @param operator 操作符
+     * @param flag
+     * @param funName  函数名字
+     * @param params   函数参数
+     * @return
+     */
+//    QueryWrapper mathematicalOperators(String value ,String operator,boolean flag,String funName,String... params);
+
+
     /**
      * 获取拼接成的sql语句
      *
