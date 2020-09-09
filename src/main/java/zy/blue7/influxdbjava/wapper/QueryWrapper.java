@@ -12,6 +12,7 @@ public interface QueryWrapper {
 
     /**
      * 设置要插入的表
+     *
      * @param measurement
      * @return
      */
@@ -100,6 +101,7 @@ public interface QueryWrapper {
 
     /**
      * 条件是 过去的 value 秒/分钟/小时  到现在的时间间隔之间
+     *
      * @param value
      * @return
      */
@@ -117,26 +119,26 @@ public interface QueryWrapper {
 
     /**
      * 通过时间来 分组，
+     *
      * @param time 每一组的时间间隔
      * @return
      */
     QueryWrapper groupByTime(String time);
 
     /**
-     *
      * @param time
      * @param offsetTime 向前或者向后移动 预设的时间界限
      * @return
      */
-    QueryWrapper groupByTime(String time,String offsetTime);
+    QueryWrapper groupByTime(String time, String offsetTime);
 
     /**
      * fill函数
+     *
      * @param fillStr
      * @return
      */
     QueryWrapper fill(String fillStr);
-
 
 
     /**
@@ -486,20 +488,238 @@ public interface QueryWrapper {
      * @param param
      * @return
      */
-    QueryWrapper cumulative_Sum(String param);
-
-    QueryWrapper cumulative_SumLike(String regex);
+//    QueryWrapper cumulative_Sum(String param);
+//
+//    QueryWrapper cumulative_SumLike(String regex);
 
 
     /**
      * derivative函数
+     * InfluxDB计算后续字段值之间的差，并将这些结果转换为每位的变化率unit。
+     * 所述unit参数是一个整数，其后一个持续时间文字，它是可选的。如果查询未指定，unit则单位默认为一秒（1s）。
+     *
      * @param param
      * @return
      */
     QueryWrapper derivative(String param);
-    QueryWrapper derivative(String param,String time);
+
+    QueryWrapper derivative(String param, String time);
+
     QueryWrapper derivativeLike(String param);
-    QueryWrapper derivativeLike(String param,String time);
+
+    QueryWrapper derivativeLike(String param, String time);
+
+
+    /**
+     * 返回绝对值
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper abs(String fieldKey);
+//    QueryWrapper ABSLike(String regex);
+
+    /**
+     * 返回反余炫
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper acos(String fieldKey);
+
+
+    /**
+     * 返回余炫
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper cos(String fieldKey);
+
+    /**
+     * 计算累计和
+     * 计算与字段键关联的字段值的累积和
+     *cumulative_sum
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper cumulative_sum(String fieldKey);
+
+    /**
+     * 计算累计和
+     * 计算与字段键关联的字段值的累积和
+     *
+     * @param regex
+     * @return
+     */
+    QueryWrapper cumulative_sumLike(String regex);
+
+    /**
+     * 返回 反正弦 值
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper asin(String fieldKey);
+    /**
+     * 返回 正弦 值
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper sin(String fieldKey);
+
+
+    QueryWrapper sqrt(String fieldKey);
+
+
+    /**
+     * 返回反正切
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper atan(String fieldKey);
+
+    /**
+     * 返回正切
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper tan(String fieldKey);
+
+    /**
+     * 返回  fieldKey1/fieldKey2 的反正切，如果fieldKey1 是 *  则匹配多个值  /fieldKey2
+     *
+     * @param fieldKey1 ---》fieldKey  *   num
+     * @param fieldKey2 -----》fieldKey num
+     * @return
+     */
+    QueryWrapper atan2(String fieldKey1, String fieldKey2);
+
+
+    /**
+     * 返回舍入到最接近整数的后续值
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper ceil(String fieldKey);
+
+    /**
+     * 返回舍入到最接近整数的后续值。
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper floor(String fieldKey);
+
+
+    /**
+     * 返回字段值的自然对数
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper ln(String fieldKey);
+
+    /**
+     * 返回以base为底的字段值的对数b
+     *
+     * @param fieldKey
+     * @param b
+     * @return
+     */
+    QueryWrapper log(String fieldKey, String b);
+
+    /**
+     * 返回以 2 为底的字段值的对数
+     *
+     * @param fieldKey
+     * @param
+     * @return
+     */
+    QueryWrapper log2(String fieldKey);
+
+    /**
+     * 返回以 10 为底的字段值的对数
+     *
+     * @param fieldKey
+     * @param
+     * @return
+     */
+    QueryWrapper log10(String fieldKey);
+
+
+
+
+    /**
+     * 返回窗口的后续字段值的滚动平均值
+     *
+     * @param fieldKey
+     * @param n
+     * @return
+     */
+    QueryWrapper moving_average(String fieldKey, String n);
+
+    QueryWrapper moving_averageLike(String regex, String n);
+
+
+    QueryWrapper non_negative_derivative(String fieldKey);
+
+    QueryWrapper non_negative_derivativeLike(String regex);
+
+    QueryWrapper non_negative_derivative(String fieldKey, String unit);
+
+    QueryWrapper non_negative_derivativeLike(String regex, String unit);
+
+
+    QueryWrapper non_negative_difference(String fieldKey);
+
+    QueryWrapper non_negative_differenceLike(String regex);
+
+
+    QueryWrapper pow(String fieldKey, String x);
+
+
+    QueryWrapper round(String fieldKey);
+
+
+    /**
+     * 返回后续字段值之间相减的结果。
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper difference(String fieldKey);
+
+    QueryWrapper differenceLike(String regex);
+
+    /**
+     * InfluxDB计算后续时间戳之间的差异。
+     * 该unit选项是一个整数，后跟持续时间文字，
+     * 它确定返回差值的单位。如果查询未指定unit选项，则查询返回时间戳之间的差异（以纳秒为单位）。
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper elapsed(String fieldKey);
+
+    QueryWrapper elapsed(String fieldKey, String unit);
+
+    QueryWrapper elapsedLike(String regex);
+
+    QueryWrapper elapsedLike(String regex, String unit);
+
+    /**
+     * 返回字段值的指数。
+     *
+     * @param fieldKey
+     * @return
+     */
+    QueryWrapper exp(String fieldKey);
+
 
     /**
      * 获取拼接成的sql语句
