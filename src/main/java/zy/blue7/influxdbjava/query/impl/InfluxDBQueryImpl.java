@@ -159,12 +159,10 @@ public class InfluxDBQueryImpl<T> implements InfluxDBQuery<T> {
                                          * 这里是因为有时候返回的 带毫秒的时间字符串，有时候返回的是不带毫秒的时间字符串
                                          */
                                         Date parse = null;
-                                        try{
+                                        if(time.contains(".")){
                                             parse = dateFormat.parse(time);
-                                        }catch (Exception e){
+                                        }else {
                                             parse = dateFormat2.parse(time);
-                                        }finally {
-
                                         }
                                         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                                         value = df.format(parse);
@@ -270,12 +268,10 @@ public class InfluxDBQueryImpl<T> implements InfluxDBQuery<T> {
                              * 这里是因为有时候返回的 带毫秒的时间字符串，有时候返回的是不带毫秒的时间字符串
                              */
                             Date parse = null;
-                            try{
+                            if(strTime.contains(".")){
                                 parse = dateFormat.parse(strTime);
-                            }catch (Exception e){
+                            }else {
                                 parse = dateFormat2.parse(strTime);
-                            }finally {
-
                             }
 
                             SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -345,12 +341,10 @@ public class InfluxDBQueryImpl<T> implements InfluxDBQuery<T> {
                                  * 这里是因为有时候返回的 带毫秒的时间字符串，有时候返回的是不带毫秒的时间字符串
                                  */
                                 Date parse = null;
-                                try{
+                                if(strTime.contains(".")){
                                     parse = dateFormat.parse(strTime);
-                                }catch (Exception e){
+                                }else {
                                     parse = dateFormat2.parse(strTime);
-                                }finally {
-
                                 }
 
                                 SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
